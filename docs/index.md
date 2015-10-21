@@ -183,12 +183,18 @@ All list responses contain the `x-total-count` header which contains the total n
 
 ### Pagination
 
-All lists retrieved are actually pages.  The following query parameters are used in pagination:
+All lists retrieved are actually pages.
+  
+There is no default sort order; when no sort order is specified, the order is undefined.  
+Because of this, and because the server does not save state between network requests,
+pagination across multiple pages will only work correctly when a sort order is specified.
+  
+The following query parameters are used in pagination:
 
 * limit - the maximum number of items to fetch in a single call; defaults to MAX_RESULTS defined in util/types/constants.js, currently 10,000.
 * offset - the number of items to skip before fetching.  0 based.
 
-For instance, `GET /api/v1.1/schemas?limit=3&offset=4` retrieves the schemas at positions 3, 4, and 5.
+For instance, `GET /api/v1.1/schemas?limit=3&offset=4&sort=name` retrieves the schemas at positions 4, 5, and 6 (0 based).
 
 ### Field selection
 
